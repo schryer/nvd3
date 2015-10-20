@@ -396,13 +396,14 @@ nv.models.lineChart = function() {
 
                         var pointYValue = null;
                         var pointIndex = null;
+                        var point = null;
                         currentValues.forEach(function(p, index) {
                             if (p.x - pointXDate === 0) {
+                                point = point;
                                 pointYValue = point.y;
                                 pointIndex = index;
                             }
                         });
-
 
                         console.log('in interactiveLayer.dispatch.on("elementMousemove" pointYValue, pointIndex', singlePoint, pointXLocation, pointXDate, pointYValue, pointIndex, currentValues);
 
@@ -417,7 +418,7 @@ nv.models.lineChart = function() {
                             value: pointYValue,
                             color: color(series,series.seriesIndex),
                             data: point,
-                            point: {x: e.pointXValue, y: pointYValue}
+                            point: {x: pointXDate, y: pointYValue}
                         });
                     });
                 //Highlight the tooltip entry based on which point the mouse is closest to.
