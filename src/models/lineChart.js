@@ -414,11 +414,12 @@ nv.models.lineChart = function() {
 
                 interactiveLayer.tooltip
                     .chartContainer(chart.container.parentNode)
-                    .valueFormatter(function(d,i) {
+                    .valueFormatter(function(d, i) {
+                        console.log('d, i within interactiveLayer.tooltip.valueFormatter', d, i, yAxis.tickFormat()(d));
                         return d === null ? "N/A" : yAxis.tickFormat()(d);
                     })
                     .data({
-                        value: chart.x()( singlePoint,pointIndex ),
+                        value: chart.x()( singlePoint, pointIndex ),
                         index: pointIndex,
                         series: allData
                     })();
