@@ -21,7 +21,7 @@ nv.models.tooltip = function() {
         ]
     }
     */
-    var id = "nvtooltip-" + Math.floor(Math.random() * 100000) // Generates a unique id when you create a new tooltip() object.
+    var id = "nvtooltip" //+ Math.floor(Math.random() * 100000) // Generates a unique id when you create a new tooltip() object.
         ,   data = null
         ,   gravity = 'w'   // Can be 'n','s','e','w'. Determines how tooltip is positioned.
         ,   distance = 25 // Distance to offset tooltip from the mouse location.
@@ -247,6 +247,9 @@ nv.models.tooltip = function() {
             var container = chartContainer ? chartContainer : document.body;
 
             // Create new tooltip div if it doesn't exist on DOM.
+            Array.prototype.forEach.call(container.querySelectorAll('.nvtooltip'), function(el) {
+                el.parentNode.removeChild(el);
+            });
             tooltip = d3.select(container).append("div")
                 .attr("class", "nvtooltip " + (classes ? classes : "xy-tooltip"))
                 .attr("id", id);

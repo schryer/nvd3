@@ -1,7 +1,6 @@
 nv.models.lineChart = function() {
     "use strict";
 
-    console.log('starting nv.models.lineChart');
     //============================================================
     // Public Variables with Default Settings
     //------------------------------------------------------------
@@ -63,10 +62,8 @@ nv.models.lineChart = function() {
     });
     
     interactiveLayer.tooltip.valueFormatter(function(d, i) {
-        console.log('d, i, formatted d, i within interactiveLayer.tooltip.valueFormatter', d, i, yAxis.tickFormat()(d, i));
         return yAxis.tickFormat()(d, i);
     }).headerFormatter(function(d, i) {
-        console.log('d, i, formatted d, i within interactiveLayer.tooltip.headerFormatter', d, i, xAxis.tickFormat()(d, i));
         return xAxis.tickFormat()(d, i);
     });
 
@@ -374,7 +371,6 @@ nv.models.lineChart = function() {
             });
 
             interactiveLayer.dispatch.on('elementMousemove', function(e) {
-                console.log('in interactiveLayer.dispatch.on("elementMousemove"', e);
                 lines.clearHighlights();
                 var singlePoint, pointIndex, pointXLocation, allData = [];
                 data
@@ -390,22 +386,17 @@ nv.models.lineChart = function() {
 
                         var pointXDate = new Date(e.pointXValue);
 
-                        //pointIndex = nv.interactiveBisect(currentValues, e.pointXValue, lines.x());
-                        //var point = currentValues[pointIndex];
-                        //var pointYValue = chart.y()(point, pointIndex);
-
                         var pointYValue = null;
-                        var pointIndex = null;
                         var point = null;
+                        var previousMin = null;
                         currentValues.forEach(function(p, index) {
-                            if (p.x - pointXDate === 0) {
-                                point = point;
-                                pointYValue = point.y;
+                            if (!previousMin || Math.abs(p.x - pointXDate) <= previousMin) {
+                                previousMin  = Math.abs(p.x - pointXDate);
+                                pointYValue = p.y;
                                 pointIndex = index;
+                                point = {x: p.x, y: p.y};
                             }
                         });
-
-                        console.log('in interactiveLayer.dispatch.on("elementMousemove" pointYValue, pointIndex', singlePoint, pointXLocation, pointXDate, pointYValue, pointIndex, currentValues);
 
                         if (pointYValue !== null) {
                             lines.highlightPoint(i, pointIndex, true);
@@ -417,8 +408,7 @@ nv.models.lineChart = function() {
                             key: series.key,
                             value: pointYValue,
                             color: color(series,series.seriesIndex),
-                            data: point,
-                            point: {x: pointXDate, y: pointYValue}
+                            data: point
                         });
                     });
                 //Highlight the tooltip entry based on which point the mouse is closest to.
@@ -434,7 +424,6 @@ nv.models.lineChart = function() {
                 interactiveLayer.tooltip
                     .chartContainer(chart.container.parentNode)
                     .valueFormatter(function(d, i) {
-                        console.log('d, i within interactiveLayer.tooltip.valueFormatter', d, i, yAxis.tickFormat()(d));
                         return d === null ? "N/A" : yAxis.tickFormat()(d);
                     })
                     .data({
