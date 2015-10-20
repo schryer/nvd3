@@ -1,6 +1,7 @@
 nv.models.lineChart = function() {
     "use strict";
 
+    console.log('starting nv.models.lineChart');
     //============================================================
     // Public Variables with Default Settings
     //------------------------------------------------------------
