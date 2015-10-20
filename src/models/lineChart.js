@@ -390,7 +390,7 @@ nv.models.lineChart = function() {
 
                         var parseDate = d3.time.format("%Y-%m-%dT%H:%M:%SZ");
                         console.log('converting date start', parseDate, e.pointXValue);
-                        var pointXDate = parseDate.parse(e.pointXValue);
+                        var pointXDate = parseDate.parse(new Date(e.pointXValue));
                         console.log('converting date end', pointXDate);
 
                         //pointIndex = nv.interactiveBisect(currentValues, e.pointXValue, lines.x());
