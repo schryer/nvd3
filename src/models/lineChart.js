@@ -373,6 +373,7 @@ nv.models.lineChart = function() {
             });
 
             interactiveLayer.dispatch.on('elementMousemove', function(e) {
+                console.log('in interactiveLayer.dispatch.on("elementMousemove"', e);
                 lines.clearHighlights();
                 var singlePoint, pointIndex, pointXLocation, allData = [];
                 data
