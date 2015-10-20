@@ -388,19 +388,23 @@ nv.models.lineChart = function() {
                             return lines.x()(d, i) >= extent[0] && lines.x()(d, i) <= extent[1];
                         });
 
-                        pointIndex = nv.interactiveBisect(currentValues, e.pointXValue, lines.x());
-                        var point = currentValues[pointIndex];
-                        var pointYValue = chart.y()(point, pointIndex);
-                        console.log('in interactiveLayer.dispatch.on("elementMousemove" pointYValue, pointIndex', pointYValue, pointIndex, currentValues);
+                        var parseDate = d3.time.format("%Y-%m-%dT%H:%M:%SZ");
+                        var pointXDate = parseDate.parse(e.pointXValue);
 
-                        //var pointYValue = null;
-                        //var pointIndex = null;
-                        //currentValues.forEach(function(point, index) {
-                        //    if (point.x === e.pointXValue) {
-                        //        pointYValue = point.y;
-                        //        pointIndex = index;
-                        //    }
-                        //});
+                        //pointIndex = nv.interactiveBisect(currentValues, e.pointXValue, lines.x());
+                        //var point = currentValues[pointIndex];
+                        //var pointYValue = chart.y()(point, pointIndex);
+
+                        var pointYValue = null;
+                        var pointIndex = null;
+                        currentValues.forEach(function(point, index) {
+                            if (point.x - pointXDate === 0) {
+                                pointYValue = point.y;
+                                pointIndex = index;
+                            }
+                        });
+
+                        console.log('in interactiveLayer.dispatch.on("elementMousemove" pointYValue, pointIndex', pointXDate, pointYValue, pointIndex, currentValues);
 
                         if (pointYValue !== null) {
                             lines.highlightPoint(i, pointIndex, true);
