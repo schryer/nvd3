@@ -56,16 +56,16 @@ nv.models.lineChart = function() {
     y2Axis.orient(rightAlignYAxis ? 'right' : 'left');
 
     tooltip.valueFormatter(function(d, i) {
-        console.log('d, i, formatted d, i within tooltip.valueFormatter', d, i, yAxis.tickFormat()(d, i));
         return yAxis.tickFormat()(d, i);
     }).headerFormatter(function(d, i) {
-        console.log('d, i, formatted d, i within tooltip.headerFormatter', d, i, xAxis.tickFormat()(d, i));
         return xAxis.tickFormat()(d, i);
     });
     
     interactiveLayer.tooltip.valueFormatter(function(d, i) {
+        console.log('d, i, formatted d, i within interactiveLayer.tooltip.valueFormatter', d, i, yAxis.tickFormat()(d, i));
         return yAxis.tickFormat()(d, i);
     }).headerFormatter(function(d, i) {
+        console.log('d, i, formatted d, i within interactiveLayer.tooltip.headerFormatter', d, i, xAxis.tickFormat()(d, i));
         return xAxis.tickFormat()(d, i);
     });
 
