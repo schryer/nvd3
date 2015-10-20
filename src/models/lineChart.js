@@ -388,12 +388,7 @@ nv.models.lineChart = function() {
                             return lines.x()(d, i) >= extent[0] && lines.x()(d, i) <= extent[1];
                         });
 
-                        var parseDate = d3.time.format("%Y-%m-%dT%H:%M:%SZ");
-                        var dateObj = new Date(e.pointXValue);
-                        console.log('converting date start', parseDate, e.pointXValue, dateObj);
-
-                        var pointXDate = parseDate.parse(dateObj);
-                        console.log('converting date end', pointXDate);
+                        var pointXDate = new Date(e.pointXValue);
 
                         //pointIndex = nv.interactiveBisect(currentValues, e.pointXValue, lines.x());
                         //var point = currentValues[pointIndex];
