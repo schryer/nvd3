@@ -382,21 +382,22 @@ nv.models.lineChart = function() {
                         series.seriesIndex = i;
                         return !series.disabled;
                     })
-                    .forEach(function(series,i) {
+                    .forEach(function(series, i) {
                         var extent = focusEnable ? (brush.empty() ? x2.domain() : brush.extent()) : x.domain();
-                        var currentValues = series.values.filter(function(d,i) {
-                            return lines.x()(d,i) >= extent[0] && lines.x()(d,i) <= extent[1];
+                        var currentValues = series.values.filter(function(d, i) {
+                            return lines.x()(d, i) >= extent[0] && lines.x()(d, i) <= extent[1];
                         });
 
                         pointIndex = nv.interactiveBisect(currentValues, e.pointXValue, lines.x());
                         var point = currentValues[pointIndex];
                         var pointYValue = chart.y()(point, pointIndex);
+                        console.log('in interactiveLayer.dispatch.on("elementMousemove" pointYValue, pointIndex', currentValues, lines.x());
                         if (pointYValue !== null) {
                             lines.highlightPoint(i, pointIndex, true);
                         }
                         if (point === undefined) return;
                         if (singlePoint === undefined) singlePoint = point;
-                        if (pointXLocation === undefined) pointXLocation = chart.xScale()(chart.x()(point,pointIndex));
+                        if (pointXLocation === undefined) pointXLocation = chart.xScale()(chart.x()(point, pointIndex));
                         allData.push({
                             key: series.key,
                             value: pointYValue,
