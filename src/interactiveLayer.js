@@ -268,7 +268,7 @@ nv.interactiveBisect = function (values, searchVal, xAccessor) {
     };
 
     var bisect = d3.bisector(_cmp).left;
-    var index = d3.max([0, bisect(values,searchVal) - 1]);
+    var index = d3.max([0, bisect(values, searchVal) - 1]);
     var currentValue = _xAccessor(values[index]);
 
     if (typeof currentValue === 'undefined') {
