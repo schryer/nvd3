@@ -396,14 +396,15 @@ nv.models.lineChart = function() {
 
                         var pointYValue = null;
                         var pointIndex = null;
-                        currentValues.forEach(function(point, index) {
-                            if (point.x - pointXDate === 0) {
+                        currentValues.forEach(function(p, index) {
+                            if (p.x - pointXDate === 0) {
                                 pointYValue = point.y;
                                 pointIndex = index;
                             }
                         });
 
-                        console.log('in interactiveLayer.dispatch.on("elementMousemove" pointYValue, pointIndex', pointXDate, pointYValue, pointIndex, currentValues);
+
+                        console.log('in interactiveLayer.dispatch.on("elementMousemove" pointYValue, pointIndex', singlePoint, pointXLocation, pointXDate, pointYValue, pointIndex, currentValues);
 
                         if (pointYValue !== null) {
                             lines.highlightPoint(i, pointIndex, true);
