@@ -391,7 +391,7 @@ nv.models.lineChart = function() {
                         pointIndex = nv.interactiveBisect(currentValues, e.pointXValue, lines.x());
                         var point = currentValues[pointIndex];
                         var pointYValue = chart.y()(point, pointIndex);
-                        console.log('in interactiveLayer.dispatch.on("elementMousemove" pointYValue, pointIndex', currentValues, lines.x());
+                        console.log('in interactiveLayer.dispatch.on("elementMousemove" pointYValue, pointIndex', pointYValue, pointIndex, currentValues);
                         if (pointYValue !== null) {
                             lines.highlightPoint(i, pointIndex, true);
                         }
@@ -402,7 +402,8 @@ nv.models.lineChart = function() {
                             key: series.key,
                             value: pointYValue,
                             color: color(series,series.seriesIndex),
-                            data: point
+                            data: point,
+                            point: {x: e.pointXValue, y: pointYValue}
                         });
                     });
                 //Highlight the tooltip entry based on which point the mouse is closest to.
